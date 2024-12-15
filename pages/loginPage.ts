@@ -6,10 +6,16 @@ export class LoginPage {
   // Create Account
   createAccountButton: Locator;
   firstNameField: Locator;
+  firstNameRequired: Locator;
   lastNameField: Locator;
+  lastNameRequired: Locator;
   emailField: Locator;
+  emailRequired: Locator;
   passwordField: Locator;
+  passwordRequired: Locator;
   confirmPasswordField: Locator;
+  confirmPasswordRequired: Locator;
+  requiredFields: Locator;
   createAccountSubmitButton: Locator;
   myAccountHeading: Locator;
   mainContent: Locator;
@@ -30,13 +36,19 @@ export class LoginPage {
       name: "Create an Account",
     });
     this.firstNameField = page.getByLabel("First Name");
+    this.firstNameRequired = page.locator("xpath=//div[@id='firstname-error']");
     this.lastNameField = page.getByLabel("Last Name");
+    this.lastNameRequired = page.locator("xpath=//div[@id='lastname-error']");
     this.emailField = page.getByLabel("Email", { exact: true });
+    this.emailRequired = page.locator("xpath=//div[@id='email_address-error']");
     this.passwordField = page.getByRole("textbox", {
       name: "Password*",
       exact: true,
     });
+    this.passwordRequired = page.locator("xpath=//div[@id='password-error']");
     this.confirmPasswordField = page.getByLabel("Confirm Password");
+    this.confirmPasswordRequired = page.locator("xpath=//div[@id='password-confirmation-error']");
+    this.requiredFields = page.locator("xpath=//fieldset[@class = 'fieldset create account']");
     this.createAccountSubmitButton = page.getByRole("button", {
       name: "Create an Account",
     });
@@ -87,6 +99,15 @@ export class LoginPage {
       - link "Edit"
       - link "Change Password"
       `);
+  }
+
+  async verifyMandatoryField() {
+    await expect(this.firstNameRequired).toBeVisible();
+    await expect(this.lastNameRequired).toBeVisible();
+    await expect(this.emailRequired).toBeVisible();
+    await expect(this.passwordRequired).toBeVisible();
+    await expect(this.confirmPasswordRequired).toBeVisible();
+    await expect(this.requiredFields).toBeVisible();
   }
 
   async signIn(email: string, password: string) {
