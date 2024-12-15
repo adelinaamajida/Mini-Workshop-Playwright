@@ -23,3 +23,10 @@ test('should show Page Object Model article', async ({ page }) => {
   await playwrightDev.pageObjectModel();
   await expect(page.locator('article')).toContainText('Page Object Model is a common pattern');
 });
+
+test('should show Page Object Model article1', async ({ page }) => {
+  const playwrightDev = new PlaywrightDevPage(page);
+  await playwrightDev.goto();
+  await playwrightDev.pageObjectModel();
+  await expect(page.locator('article')).toContainText('Page Object Model is a common pattern');
+});
